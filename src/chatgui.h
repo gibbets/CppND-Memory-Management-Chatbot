@@ -3,6 +3,8 @@
 
 #include <wx/wx.h>
 
+#include <memory>
+
 class ChatLogic; // forward declaration
 
 // middle part of the window containing the dialog between user and chatbot
@@ -16,7 +18,7 @@ private:
     //// STUDENT CODE
     ////
 
-    ChatLogic *_chatLogic;
+    std::unique_ptr<ChatLogic> _chatLogic;
 
     ////
     //// EOF STUDENT CODE
@@ -26,9 +28,6 @@ public:
     ChatBotPanelDialog(wxWindow *parent, wxWindowID id);
     ~ChatBotPanelDialog();
 
-    // getter / setter
-    ChatLogic *GetChatLogicHandle() { return _chatLogic; }
-
     // events
     void paintEvent(wxPaintEvent &evt);
     void paintNow();
@@ -37,6 +36,9 @@ public:
     // proprietary functions
     void AddDialogItem(wxString text, bool isFromUser = true);
     void PrintChatbotResponse(std::string response);
+
+    void SendMessageToChatbot(std::string message);
+    wxBitmap *GetImageFromChatbot(void);
 
     DECLARE_EVENT_TABLE()
 };
