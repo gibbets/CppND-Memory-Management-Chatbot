@@ -3,6 +3,8 @@
 
 #include <wx/wx.h>
 
+#include <memory>
+
 class ChatLogic; // forward declaration
 
 // middle part of the window containing the dialog between user and chatbot
@@ -16,7 +18,19 @@ private:
     //// STUDENT CODE
     ////
 
-    ChatLogic *_chatLogic;
+    /*
+    _chatLogic is supposed to be exclusivly owned by ChatBotPanelDialog. What this means is not explained.
+
+    I assume:
+    - owned: The owner is responsible creation and deletion of the object
+    - exclusivly: There is and can be exactly one owner. 
+
+    An unique pointer makes a resource not magically exclusivly owned. One can still move the resource, or
+    leak the actual reference.
+
+    */
+
+    std::unique_ptr<ChatLogic> _chatLogic;
 
     ////
     //// EOF STUDENT CODE
@@ -27,7 +41,7 @@ public:
     ~ChatBotPanelDialog();
 
     // getter / setter
-    ChatLogic *GetChatLogicHandle() { return _chatLogic; }
+    ChatLogic *GetChatLogicHandle() { return _chatLogic.get(); }
 
     // events
     void paintEvent(wxPaintEvent &evt);
