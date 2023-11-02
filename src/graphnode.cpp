@@ -10,8 +10,14 @@ GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     ////
+ 
+    /*
+    _chatBot is actually owned by GraphNode, but deleting it here will lead to a seg fault.
+    Who knows what this warm-up task is really about?
+    */
 
-    delete _chatBot; 
+
+    //delete _chatBot;
 
     ////
     //// EOF STUDENT CODE
